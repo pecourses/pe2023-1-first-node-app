@@ -1,15 +1,25 @@
-// --- def imp
-// 1
-// ESM import sum from './math.js'
-// const sum = require('./math');
-// console.log(sum(1, 4));
+const os = require('os');
+const fs = require('fs');
 
-// --- named imp
-// 2.1
-// ESM import * as Math from './math.js'
-// const Math = require('./math.js');
-// console.log(Math.sum(1, 10));
+console.log(os.cpus());
+console.log(os.homedir());
+console.log(os.platform());
 
-// 2.2 ESM import {sum, mult} from './math.js'
-const { sum, mult } = require('./math.js');
-console.log('mult(5,10) :>> ', mult(5, 10));
+try {
+  const file = fs.readFileSync('./math.js', { encoding: 'utf-8' });
+  console.log(file);
+} catch (err) {
+  console.log('err :>> ', err);
+}
+
+// contract: "error first"
+fs.readFile('./math.js', { encoding: 'utf-8' }, (err, fileData) => {
+  if (err) {
+    console.log('err :>> ', err);
+  } else {
+    console.log('fileData :>> ', fileData);
+  }
+});
+
+console.log('__filename :>> ', __filename);
+console.log('__dirname :>> ', __dirname);
