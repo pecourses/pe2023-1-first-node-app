@@ -1,25 +1,15 @@
-const os = require('os');
-const fs = require('fs');
+const http = require('http');
 
-console.log(os.cpus());
-console.log(os.homedir());
-console.log(os.platform());
+// 1 Create server
+const server = http.createServer((request, response) => {
+  // console.log('Hello from server');
+  console.log('request.url :>> ', request.url);
+  console.log('request.method :>> ', request.method);
 
-try {
-  const file = fs.readFileSync('./math.js', { encoding: 'utf-8' });
-  console.log(file);
-} catch (err) {
-  console.log('err :>> ', err);
-}
-
-// contract: "error first"
-fs.readFile('./math.js', { encoding: 'utf-8' }, (err, fileData) => {
-  if (err) {
-    console.log('err :>> ', err);
-  } else {
-    console.log('fileData :>> ', fileData);
-  }
+  response.statusCode = 200;
+  response.end('result');
 });
 
-console.log('__filename :>> ', __filename);
-console.log('__dirname :>> ', __dirname);
+// 2 Run server
+// http://localhost:5000
+server.listen(5000, () => console.log('Server is listening port 5000'));
